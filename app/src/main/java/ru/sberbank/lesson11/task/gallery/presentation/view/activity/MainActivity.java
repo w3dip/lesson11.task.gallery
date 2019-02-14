@@ -10,13 +10,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.sberbank.lesson11.task.gallery.R;
 import ru.sberbank.lesson11.task.gallery.presentation.view.adapter.GalleryAdapter;
 import ru.sberbank.lesson11.task.gallery.presentation.viewmodel.GalleryViewModel;
+
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -46,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
@@ -60,12 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void takePhotos() {
         GalleryViewModel galleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
-        /*galleryViewModel.getImages().observe(this, gallery -> {
-            GalleryAdapter adapter = new GalleryAdapter(this);
-            adapter.setGallery(gallery);
-            recyclerGallery.setAdapter(adapter);
-            recyclerGallery.setLayoutManager(new GridLayoutManager(this, 4));
-        });*/
         GalleryAdapter adapter = new GalleryAdapter(this);
         adapter.setGallery(galleryViewModel.getImages());
         recyclerGallery.setAdapter(adapter);

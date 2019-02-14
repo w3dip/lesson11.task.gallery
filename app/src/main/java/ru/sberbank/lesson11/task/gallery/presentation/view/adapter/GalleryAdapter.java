@@ -3,7 +3,6 @@ package ru.sberbank.lesson11.task.gallery.presentation.view.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -28,7 +27,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public static final String IMAGE_URL = "ru.sberbank.lesson11.task.gallery.IMAGE_URL";
 
     private final LayoutInflater inflater;
-    //private List<Drawable> gallery = Collections.emptyList();
     private List<String> gallery = Collections.emptyList();
     private Context context;
 
@@ -76,11 +74,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public void setGallery(List<String> gallery) {
         this.gallery = gallery;
     }
-
-    /*public void setGallery(List<Drawable> gallery) {
-        this.gallery = gallery;
-        notifyDataSetChanged();
-    }*/
 
     @Override
     public int getItemCount() {

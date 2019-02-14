@@ -1,7 +1,6 @@
 package ru.sberbank.lesson11.task.gallery.presentation.view.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -27,15 +26,11 @@ public class ImagePreviewActivity extends FragmentActivity {
         setContentView(R.layout.activity_image_preview);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String url = intent.getStringExtra(IMAGE_URL);
-
         GalleryViewModel galleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
-
         ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         List<String> gallery = galleryViewModel.getImages();
         pagerAdapter.setGallery(gallery);
         pager.setAdapter(pagerAdapter);
-        pager.setCurrentItem(gallery.indexOf(url));
+        pager.setCurrentItem(gallery.indexOf(getIntent().getStringExtra(IMAGE_URL)));
     }
 }
